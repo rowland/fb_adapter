@@ -347,6 +347,10 @@ module ActiveRecord
         @transaction = @connection.rollback
       end
 
+      def add_lock!(sql, options) # :nodoc:
+        sql
+      end
+
       def add_limit_offset!(sql, options) # :nodoc:
         if options[:limit]
           limit_string = "FIRST #{options[:limit]}"
