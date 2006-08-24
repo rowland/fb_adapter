@@ -34,7 +34,7 @@ module ActiveRecord
         @firebird_type = Fb::SqlType.from_code(type, sub_type || 0)
         super(name.downcase, nil, @firebird_type, !null_flag)
         @default = parse_default(default_source) if default_source
-        @limit = length
+        @limit = (@firebird_type == 'BLOB') ? 10 * 1024 * 1024 : length
         @domain, @sub_type, @precision, @scale = domain, sub_type, precision, scale
       end
 
