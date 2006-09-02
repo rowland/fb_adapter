@@ -64,7 +64,7 @@ module ActiveRecord
       end
 
       def self.value_to_boolean(value)
-        %W(#{FirebirdAdapter.boolean_domain[:true]} true t 1).include? value.to_s.downcase
+        %W(#{FbAdapter.boolean_domain[:true]} true t 1).include? value.to_s.downcase
       end
 
       private
