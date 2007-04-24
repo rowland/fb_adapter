@@ -336,7 +336,7 @@ module ActiveRecord
       alias_method :delete, :execute
 
       def begin_db_transaction() # :nodoc:
-        @transaction = @connection.transaction
+        @transaction = @connection.transaction('READ COMMITTED')
       end
 
       def commit_db_transaction() # :nodoc:
