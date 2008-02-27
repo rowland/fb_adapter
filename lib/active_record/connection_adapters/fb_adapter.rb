@@ -27,8 +27,6 @@ module ActiveRecord
 
   module ConnectionAdapters
     class FbColumn < Column # :nodoc:
-      VARCHAR_MAX_LENGTH = 32_765
-
       def initialize(name, domain, type, sub_type, length, precision, scale, default_source, null_flag)
         #puts "*** #{type} ~~~ #{sub_type}"
         @firebird_type = Fb::SqlType.from_code(type, sub_type || 0)
@@ -75,7 +73,6 @@ module ActiveRecord
 
         def column_def
           case @firebird_type
-            #when 'BLOB'               then "VARCHAR(#{VARCHAR_MAX_LENGTH})"
             when 'CHAR', 'VARCHAR'    then "#{@firebird_type}(#{@limit})"
             when 'NUMERIC', 'DECIMAL' then "#{@firebird_type}(#{@precision},#{@scale.abs})"
             #when 'DOUBLE'             then "DOUBLE PRECISION"
