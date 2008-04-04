@@ -4,8 +4,8 @@ require 'rubygems'
 spec = Gem::Specification.new do |s|
   s.author = "Brent Rowland"
   s.name = "fb_adapter"
-  s.version = "0.5.5"
-  s.date = "2008-02-27"
+  s.version = "0.5.6"
+  s.date = "2008-04-04"
   s.summary = "ActiveRecord Firebird Adapter"
   s.requirements = "Firebird library fb"
   s.require_path = 'lib'

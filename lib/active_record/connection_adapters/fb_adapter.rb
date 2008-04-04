@@ -218,13 +218,14 @@ module ActiveRecord
         case value
           when String
             "@#{Base64.encode64(value).chop}@"
-          when Float, Fixnum, Bignum then quote_number(value)
-          when Date                  then quote_date(value)
-          when Time, DateTime        then quote_timestamp(value)
-          when NilClass              then "NULL"
-          when TrueClass             then (column && column.type == :integer ? '1' : quoted_true)
-          when FalseClass            then (column && column.type == :integer ? '0' : quoted_false)
-          else                            quote_object(value)
+          when Float, Fixnum, 
+            Bignum, BigDecimal then quote_number(value)
+          when Date            then quote_date(value)
+          when Time, DateTime  then quote_timestamp(value)
+          when NilClass        then "NULL"
+          when TrueClass       then (column && column.type == :integer ? '1' : quoted_true)
+          when FalseClass      then (column && column.type == :integer ? '0' : quoted_false)
+          else                 quote_object(value)
         end
       end
 
@@ -420,6 +421,7 @@ module ActiveRecord
           :text        => { :name => "blob sub_type text" },
           :integer     => { :name => "integer" },
           :float       => { :name => "float" },
+          :decimal     => { :name => "decimal" },
           :datetime    => { :name => "timestamp" },
           :timestamp   => { :name => "timestamp" },
           :time        => { :name => "time" },
