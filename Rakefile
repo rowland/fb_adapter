@@ -1,11 +1,12 @@
 #!/bin/env ruby
 require 'rubygems'
+require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
   s.author = "Brent Rowland"
   s.name = "fb_adapter"
-  s.version = "0.5.6"
-  s.date = "2008-04-04"
+  s.version = "0.5.7"
+  s.date = "2008-12-02"
   s.summary = "ActiveRecord Firebird Adapter"
   s.requirements = "Firebird library fb"
   s.require_path = 'lib'
@@ -18,7 +19,7 @@ spec = Gem::Specification.new do |s|
   s.files = ['fb_adapter.gemspec'] + Dir.glob('lib/active_record/connection_adapters/*')
 end
 
-if __FILE__ == $0
-  Gem.manage_gems
-  Gem::Builder.new(spec).build
+Rake::GemPackageTask.new(spec) do |pkg|
+  pkg.need_tar = false
+  pkg.need_zip = false
 end

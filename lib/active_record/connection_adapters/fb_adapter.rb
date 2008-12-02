@@ -52,7 +52,7 @@ module ActiveRecord
       def default
         if @default
           sql = "SELECT CAST(#{@default} AS #{column_def}) FROM RDB$DATABASE"
-          connection = ActiveRecord::Base.active_connections.values.detect { |conn| conn && conn.adapter_name == 'Fb' }
+          connection = ActiveRecord::Base.connection
           if connection
             type_cast connection.select_one(sql)['cast']
           else
