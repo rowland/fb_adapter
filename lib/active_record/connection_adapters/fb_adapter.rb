@@ -13,7 +13,7 @@ module ActiveRecord
         raise ArgumentError, "No database specified. Missing argument: database."
       end      
       config[:database] = File.expand_path(config[:database]) if config[:host] =~ /localhost/i
-      config[:database] = "#{config[:host]}:#{config[:database]}" if config[:host]
+      config[:database] = "#{config[:host]}/#{config[:port] || 3050}:#{config[:database]}" if config[:host]
       db = Fb::Database.new(config)
       begin
         connection = db.connect
