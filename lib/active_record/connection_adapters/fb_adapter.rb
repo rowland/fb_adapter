@@ -28,7 +28,6 @@ module ActiveRecord
   module ConnectionAdapters
     class FbColumn < Column # :nodoc:
       def initialize(name, domain, type, sub_type, length, precision, scale, default_source, null_flag)
-        #puts "*** #{type} ~~~ #{sub_type}"
         @firebird_type = Fb::SqlType.from_code(type, sub_type || 0)
         super(name.downcase, nil, @firebird_type, !null_flag)
         @default = parse_default(default_source) if default_source
@@ -247,7 +246,13 @@ module ActiveRecord
       end
 
       def quote_object(obj)
-        return obj.respond_to?(:quoted_id) ? obj.quoted_id : "@#{Base64.encode64(obj.to_yaml).chop}@"
+        if obj.respond_to?(:quoted_id)
+          obj.quoted_id
+        elsif obj.respond_to?(:to_str)
+          "@#{Base64.encode64(obj.to_str).chop}@"
+        else
+          "@#{Base64.encode64(obj.to_yaml).chop}@"
+        end
       end
 
       def quote_column_name(column_name) # :nodoc:
