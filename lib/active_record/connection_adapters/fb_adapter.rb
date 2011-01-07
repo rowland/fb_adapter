@@ -356,11 +356,14 @@ module ActiveRecord
       end
 
       def add_limit_offset!(sql, options) # :nodoc:
-        if options[:limit]
-          limit_string = "FIRST #{options[:limit]}"
-          limit_string << " SKIP #{options[:offset]}" if options[:offset]
-          sql.sub!(/\A(\s*SELECT\s)/i, '\&' + limit_string + ' ')
+        if limit = options[:limit]
+          if offset = options[:offset]
+            sql << " ROWS #{offset.to_i + 1} TO #{offset.to_i + limit.to_i}"
+          else
+            sql << " ROWS #{limit.to_i}"
+          end
         end
+        sql
       end
 
       # Returns the next sequence value from a sequence generator. Not generally
