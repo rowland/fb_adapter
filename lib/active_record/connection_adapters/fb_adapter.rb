@@ -19,7 +19,7 @@ module ActiveRecord
         connection = db.connect
       rescue
         require_library_or_gem 'pp'
-        pp config unless config[:create]
+        pp config if config[:verbose]
         connection = config[:create] ? db.create.connect : (raise ConnectionNotEstablished, "No Firebird connections established.")
       end
       ConnectionAdapters::FbAdapter.new(connection, logger, config)
