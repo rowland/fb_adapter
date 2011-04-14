@@ -5,7 +5,7 @@ require 'rake/gempackagetask'
 spec = Gem::Specification.new do |s|
   s.author = "Brent Rowland"
   s.name = "fb_adapter"
-  s.version = "0.6.1"
+  s.version = "0.6.2"
   s.date = "2011-04-14"
   s.summary = "ActiveRecord Firebird Adapter"
   s.requirements = "Firebird library fb"
