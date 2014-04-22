@@ -370,7 +370,7 @@ module ActiveRecord
       # called directly; used by ActiveRecord to get the next primary key value
       # when inserting a new database record (see #prefetch_primary_key?).
       def next_sequence_value(sequence_name)
-        select_one("SELECT GEN_ID(#{sequence_name}, 1) FROM RDB$DATABASE", nil, :array).first
+        select_one("SELECT NEXT VALUE FOR #{sequence_name} FROM RDB$DATABASE", nil, :array).first
       end
 
       # SCHEMA STATEMENTS ========================================
